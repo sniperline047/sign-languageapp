@@ -11,9 +11,13 @@
   },
   "dependencies": {
     "@react-native-community/cameraroll": "^4.0.0",
+    "moment": "^2.27.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
-    "react-native-camera": "^3.31.0"
+    "react-native-camera": "^3.31.0",
+    "react-native-vector-icons": "^7.0.0",
+    "react-native-video": "^4.4.5",
+    "react-native-video-player": "^0.10.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
