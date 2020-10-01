@@ -9,46 +9,48 @@ import {
   Alert, 
   BackHandler, 
   Dimensions, 
-  StatusBar 
-} from 'react-native';
+  StatusBar } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import CameraRoll from "@react-native-community/cameraroll";
 import VideoList from './src/components/VideoList';
 import moment from 'moment';
 import VideoPlayer from 'react-native-video-player';
 
+
 class App extends Component {
-  constructor() {
-    super();
-
-    this.rootView = React.createRef();
-
-    this.state = {
-      isCameraVisible: false,
-      isFront: false,
-      selectedVideo: '',
-      videos: [],
-      isVideoOn: false, 
-      orientation: 'potrait'
-    };
+  state = {
+    isCameraVisible: false,
+    isFront: false,
+    selectedVideo: '',
+    videos: [],
+    isVideoOn: false, 
+    orientation: 'potrait'
   }
-
-  getOrientation = () => {
-    if(this.rootView.current) {
-        if(Dimensions.get('window').width < Dimensions.get('window').height) {
-          this.setState({orientation: 'portrait'});
+  getOrientation = () =>
+  {
+    if( this.refs.rootView )
+    {
+        if( Dimensions.get('window').width < Dimensions.get('window').height )
+        {
+          this.setState({ orientation: 'portrait' });
           console.log(this.state.orientation);
-        } else {
-          this.setState({orientation: 'landscape'});
+        }
+        else
+        {
+          this.setState({ orientation: 'landscape' });
           console.log(this.state.orientation);
         }
     }
   }
 
-  componentDidMount() {
+  componentDidMount()
+  {
     this.getOrientation();
-    Dimensions.addEventListener( 'change', () => this.getOrientation());
-
+    
+    Dimensions.addEventListener( 'change', () =>
+    {
+      this.getOrientation();
+    });
     const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       Alert.alert("Hold on!", "Are you sure you want to exit?", [
         {
@@ -62,6 +64,7 @@ class App extends Component {
     });
   }
   
+
   hasAndroidPermission = async () => {
     const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
   
@@ -97,7 +100,7 @@ class App extends Component {
   }
 
   stopVideo = async () => {
-    this.camera.stopRecording();
+      this.camera.stopRecording();
   }
 
   takePicture = async () => {
@@ -141,7 +144,7 @@ class App extends Component {
   render() { 
     if(!this.state.isVideoOn){
         return (  
-          <View style={styles.container} ref ={this.rootView}>
+          <View style={styles.container} ref = "rootView">
             <StatusBar backgroundColor='#3ea6ff' />
             {
               !this.state.isCameraVisible && 
@@ -149,6 +152,7 @@ class App extends Component {
                 <Text style={styles.title}>
                   Sign Language Converter
                 </Text>
+
                 {
                   this.state.videos.length === 0 && 
                   <View style={{width: '100%', height: 600, flex: 1, justifyContent: 'center'}}>
@@ -169,7 +173,7 @@ class App extends Component {
                   }}
                   style={styles.scanButton}
                 >
-                  <Text style={{ fontSize: 16, marginTop: 5 }}>Scan</Text>
+                    <Text style={{ fontSize: 16, marginTop: 5 }}>Scan</Text>
                 </TouchableOpacity>
               </View>
             }
